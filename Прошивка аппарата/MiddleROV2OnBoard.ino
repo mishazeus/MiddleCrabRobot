@@ -10,10 +10,10 @@
 
 #define RS485_CONTROL_PIN 2
 
-#define FRONT_LEFT_MOTOR_PIN 3
-#define FRONT_RIGHT_MOTOR_PIN 4
-#define BACK_LEFT_MOTOR_PIN 5
-#define BACK_RIGHT_MOTOR_PIN 6
+#define FRONT_LEFT_MOTOR_PIN 4
+#define FRONT_RIGHT_MOTOR_PIN 3
+#define BACK_LEFT_MOTOR_PIN 6
+#define BACK_RIGHT_MOTOR_PIN 5
 #define VERTICAL_MOTOR_PIN_L 11
 #define VERTICAL_MOTOR_PIN_R 12
 
@@ -83,10 +83,10 @@ void loop() {
         Serial1.readBytes(buffer + 1, 9);
 
         if (buffer[0] == START_BYTE && buffer[9] == END_BYTE) {
-            frontLeftMotor.set_power(buffer[1]);
-            frontRightMotor.set_power(-buffer[2]-5);
+            frontLeftMotor.set_power(buffer[1]-5);
+            frontRightMotor.set_power(buffer[2]-5);
             backLeftMotor.set_power(buffer[3]);
-            backRightMotor.set_power(-buffer[4]);
+            backRightMotor.set_power(buffer[4]);
             verticalMotorL.set_power(buffer[5]-4);
             verticalMotorR.set_power(buffer[6]-4);
             camera.rotate(buffer[7] * 3);
